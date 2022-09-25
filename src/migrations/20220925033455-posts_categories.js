@@ -12,7 +12,7 @@ module.exports = {
           key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       category_id: {
         type: Sequelize.INTEGER,

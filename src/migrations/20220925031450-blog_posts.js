@@ -10,8 +10,12 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true,
       },
-      title: Sequelize.STRING,
-      content: Sequelize.STRING,
+      title: {
+        type:Sequelize.STRING,
+      },
+      content: {
+        type:Sequelize.STRING
+      },
       user_id: {
         type:Sequelize.INTEGER,
         references: {
@@ -21,15 +25,15 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      published: Sequelize.DATETIME,
-      updated: Sequelize.DATETIME,
+      published: Sequelize.DATE,
+      updated: Sequelize.DATE,
     });
 
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
 
     await queryInterface.dropTable('blog_posts');
-     
+
   }
 };

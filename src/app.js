@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 const errorHandler = require('./middlewares/erroHandler');
 const loginRouter = require('./routes/loginRouter');
 const userRouter = require('./routes/userRouter');

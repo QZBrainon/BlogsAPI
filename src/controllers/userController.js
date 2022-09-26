@@ -5,7 +5,7 @@ const post = async (req, res) => {
     const newUser = req.body;
     await userService.post(newUser);
 
-    return res.status(200).json(token);
+    return res.status(201).json(token);
 };
 
 module.exports = {

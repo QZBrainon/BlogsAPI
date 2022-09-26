@@ -13,9 +13,8 @@ const login = async (req, res) => {
         }
 
         const user = await loginService.login(email, password);
-        const { message } = user;
 
-        if (user.message) return res.status(400).json({ message });
+        if (!user) return res.status(400).json({ message: 'Invalid fields' });
 
         const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
         const token = jwt.sign({ data: { 

@@ -16,7 +16,13 @@ const post = async ({ displayName, email, password, image }) => {
     return createdUser;
 };
 
+const getAllUsers = async () => {
+    const allUsers = await User.findAll();
+    return allUsers;
+};
+
 module.exports = {
     checkByEmail,
     post,
+    getAllUsers,
 };

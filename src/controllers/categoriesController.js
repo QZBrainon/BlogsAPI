@@ -6,6 +6,12 @@ const post = async (req, res) => {
     return res.status(201).json(result);
 };
 
+const getAll = async (_req, res) => {
+    const result = await categoriesService.getAll();
+    return res.status(200).json(result);
+};
+
 module.exports = {
     post,
+    getAll,
 };

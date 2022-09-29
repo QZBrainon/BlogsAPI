@@ -8,7 +8,9 @@ const jwtAuth = async (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'Token not found' });
 
     try {
-        jwt.verify(token, secret);
+        const verify = jwt.verify(token, secret);
+        req.userEmail = verify.data.email;
+        req.userName = verify.data.name;
         return next();
     } catch (e) {
         return res.status(401).json({ message: 'Expired or invalid token' });

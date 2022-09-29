@@ -17,7 +17,9 @@ const login = async (req, res) => {
         if (!user) return res.status(400).json({ message: 'Invalid fields' });
 
         const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
-        const token = jwt.sign({ data: { email: user.email } }, secret, jwtConfig);
+        const token = jwt.sign({ 
+            data: { name: user.displayName, email: user.email }, 
+        }, secret, jwtConfig);
         
         return res.status(200).json({ token });
     } catch (error) {

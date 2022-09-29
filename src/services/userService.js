@@ -3,7 +3,12 @@ const { User } = require('../models');
 const checkByEmail = async (email) => {
     const result = await User.findOne({ where: { email } });
     if (result) return ({ message: 'User already registered' });
-    return ({ ok: 'Ready to register' });
+    return result;
+};
+
+const checkByName = async (displayName) => {
+    const result = await User.findOne({ where: { displayName } });
+    return result;
 };
 
 const post = async ({ displayName, email, password, image }) => {
@@ -33,4 +38,5 @@ module.exports = {
     post,
     getAllUsers,
     getById,
+    checkByName,
 };

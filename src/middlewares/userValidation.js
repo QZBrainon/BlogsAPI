@@ -9,7 +9,13 @@ const userValidator = async (req, res, next) => {
             return res.status(400).json({ message });
         }
         const alreadyRegistered = await userService.checkByEmail(req.body.email);
-        if (alreadyRegistered.message) return res.status(409).json(alreadyRegistered);
+    
+        if (alreadyRegistered === null) {
+            return next();
+        }
+        if (alreadyRegistered.message) {
+            return res.status(409).json(alreadyRegistered);
+        }
         return next();
     } catch (e) {
         console.log(e.message);

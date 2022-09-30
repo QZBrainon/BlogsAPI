@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { BlogPost } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 const userService = require('./userService');
 const PostCategoryService = require('./postCategoryService');
 
@@ -23,6 +23,17 @@ const post = async (postDetails, userName) => { //
     return result;
 };
 
+const getAllPosts = async () => {
+    const result = await BlogPost.findAll({
+        include: [
+            { model: User, as: 'user', attributes: { exclude: ['password'] } },
+            { model: Category, as: 'categories' },
+        ],
+    });
+    return result;
+};
+
 module.exports = {
     post,
+    getAllPosts,
 };

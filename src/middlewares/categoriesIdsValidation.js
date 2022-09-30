@@ -4,12 +4,14 @@ const validateCategoryIds = async (req, res, next) => {
     const { categoryIds } = req.body;
     const allCategories = await categoriesService.getAll();
     const allExistingIds = allCategories.map((category) => category.id);
-    categoryIds.forEach((categoryId) => {
-        const check = allExistingIds.every((existingId) => existingId === categoryId);
-        if (check === false) {
-            return res.status(400).json({ message: '"categoryIds" not found' });
-        }
+    const result = categoryIds.map((categoryId) => {
+        const check = allExistingIds.some((existingId) => existingId === categoryId);
+        return check;
     });
+
+    if (result.includes(false)) {
+        return res.status(400).json({ message: '"categoryIds" not found' });
+    }
     return next();
 };
 

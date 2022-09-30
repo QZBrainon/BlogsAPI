@@ -8,8 +8,7 @@ const post = async (req, res) => {
         return res.status(400).json({ message: 'Some required fields are missing' });
     }
     const result = await postService.post(postDetails, userName);
-    if (!result) return res.status(500).json('not working');
-    return res.status(200).json(result);
+    return res.status(201).json(result);
 };
 
 module.exports = {

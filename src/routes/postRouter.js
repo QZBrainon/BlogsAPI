@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post('/', jwtAuth, categoriesIdsValidation, postController.post);
 router.get('/', jwtAuth, postController.getAllPosts);
+router.get('/:id', jwtAuth, postController.getPostById);
 
 module.exports = router;

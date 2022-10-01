@@ -1,4 +1,5 @@
 const postService = require('../services/postService');
+const userService = require('../services/userService');
 
 const post = async (req, res) => {
     const postDetails = req.body;
@@ -23,8 +24,25 @@ const getPostById = async (req, res) => {
     return res.status(200).json(result);
 };
 
+const updatePost = async (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const { userName } = req;
+    const validateUser = await userService.checkByName(userName);
+    if (validateUser.displayName !== userName) {
+        return res.status(401).json({ message: 'Unauthorized user' });
+    }
+    if (!title || !content) {
+        return res.status(400).json({ message: 'Some required fields are missing' });
+    }
+    await postService.updatePost(id, title, content);
+    const result = await postService.getPostById(id);
+    return res.stats(200).json(result);
+};
+
 module.exports = {
     post,
     getAllPosts,
     getPostById,
+    updatePost,
 };

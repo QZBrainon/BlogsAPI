@@ -29,9 +29,8 @@ const updatePost = async (req, res) => {
     const { title, content } = req.body;
     const userId = req.id;
     const user = await userService.getById(userId);
-    console.log(user);
     const userPosts = user.posts;
-    const validation = userPosts.some((userPost) => userPost.id === id);
+    const validation = userPosts.some((userPost) => userPost.id === Number(id));
     if (!validation) {
         return res.status(401).json({ message: 'Unauthorized user' });
     }

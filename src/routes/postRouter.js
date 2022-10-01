@@ -6,7 +6,10 @@ const postController = require('../controllers/postController');
 const router = express.Router();
 
 router.post('/', jwtAuth, categoriesIdsValidation, postController.post);
+
 router.get('/', jwtAuth, postController.getAllPosts);
 router.get('/:id', jwtAuth, postController.getPostById);
+
+router.put('/:id', jwtAuth, postController.updatePost);
 
 module.exports = router;

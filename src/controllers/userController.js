@@ -6,9 +6,11 @@ const secret = process.env.JWT_SECRET;
 
 const post = async (req, res) => {
     const newUser = req.body;
-    await userService.post(newUser);
+    const result = await userService.post(newUser);
     const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
-    const token = jwt.sign({ data: { email: req.body.email } }, secret, jwtConfig);
+    const token = jwt.sign({ 
+        data: { id: result.dataValues.id, name: newUser.displayName, email: newUser.email }, 
+    }, secret, jwtConfig);
 
     return res.status(201).json({ token });
 };

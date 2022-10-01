@@ -3,6 +3,8 @@ const UserSchema = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey:true,
+      autoIncrement: true,
+      allowNull: false
     },
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,

@@ -9,8 +9,10 @@ const jwtAuth = async (req, res, next) => {
 
     try {
         const verify = jwt.verify(token, secret);
-        req.userEmail = verify.data.email;
+        console.log(verify);
+        req.id = verify.data.id;
         req.userName = verify.data.name;
+        req.userEmail = verify.data.email;
         return next();
     } catch (e) {
         return res.status(401).json({ message: 'Expired or invalid token' });

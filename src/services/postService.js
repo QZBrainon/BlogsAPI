@@ -5,7 +5,6 @@ const userService = require('./userService');
 const PostCategoryService = require('./postCategoryService');
 
 const post = async (postDetails, userName) => { // 
-    // (userName vem do validateJWT.js como  req.userName = verify.data.name;)
     const { id } = await userService.checkByName(userName);
     const { title, content, categoryIds } = postDetails;
     const result = await BlogPost.create(
@@ -44,7 +43,7 @@ const getPostById = async (id) => {
     return result;
 };
 
-const updatePost = async (id, { title, content }) => {
+const updatePost = async ({ title, content, id }) => {
     const result = await BlogPost.update({ title, content }, { where: { id } });
     return result;
 };

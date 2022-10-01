@@ -27,15 +27,18 @@ const getPostById = async (req, res) => {
 const updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, content } = req.body;
-    const { userName } = req;
-    const validateUser = await userService.checkByName(userName);
-    if (validateUser.displayName !== userName) {
+    const userId = req.id;
+    const user = await userService.getById(userId);
+    console.log(user);
+    const userPosts = user.posts;
+    const validation = userPosts.some((userPost) => userPost.id === id);
+    if (!validation) {
         return res.status(401).json({ message: 'Unauthorized user' });
     }
     if (!title || !content) {
         return res.status(400).json({ message: 'Some required fields are missing' });
     }
-    await postService.updatePost(id, title, content);
+    await postService.updatePost({ title, content, id });
     const result = await postService.getPostById(id);
     return res.status(200).json(result);
 };

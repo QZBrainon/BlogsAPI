@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, BlogPost } = require('../models');
 
 const checkByEmail = async (email) => {
     const result = await User.findOne({ where: { email } });
@@ -29,7 +29,11 @@ const getAllUsers = async () => {
 };
 
 const getById = async (id) => {
-    const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+    const user = await User.findOne({ 
+        where: { id }, 
+        attributes: { exclude: ['password'] },
+        include: { model: BlogPost, as: 'posts' }, 
+    });
     return user;
 };
 

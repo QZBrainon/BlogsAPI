@@ -58,7 +58,7 @@ const deletePost = async (req, res) => {
 
 const getPostByQuery = async (req, res) => {
     const { q } = req.query;
-    const result = await postService.getPostByTitle(q);
+    const result = await postService.getPostByQuery(q);
     return res.status(200).json(result);
 };
 

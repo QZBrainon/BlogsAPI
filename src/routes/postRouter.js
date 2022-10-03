@@ -14,4 +14,6 @@ router.put('/:id', jwtAuth, postController.updatePost);
 
 router.delete('/:id', jwtAuth, postController.deletePost);
 
+router.get('/search?q=:searchTerm', jwtAuth, postController.getPostByQuery);
+
 module.exports = router;

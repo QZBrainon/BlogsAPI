@@ -1,8 +1,10 @@
 require('dotenv').config();
 
-const { BlogPost, User, Category } = require('../models');
+const { BlogPost, User, Category, Sequelize } = require('../models');
 const userService = require('./userService');
 const PostCategoryService = require('./postCategoryService');
+
+const { Op } = Sequelize;
 
 const post = async (postDetails, userName) => { // 
     const { id } = await userService.checkByName(userName);
@@ -53,10 +55,21 @@ const deletePost = async (id) => {
     return result;
 };
 
+const getPostByQuery = async (queryString) => {
+    const result = await BlogPost.findAll({ 
+        where: { 
+            title: { [Op.like]: `%${queryString}%` },
+            content: { [Op.like]: `%${queryString}%` },       
+    }, 
+});
+    return result;
+};
+
 module.exports = {
     post,
     getAllPosts,
     getPostById,
     updatePost,
     deletePost,
+    getPostByQuery,
 };

@@ -12,6 +12,6 @@ router.get('/:id', jwtAuth, postController.getPostById);
 
 router.put('/:id', jwtAuth, postController.updatePost);
 
-router.delete('/:id', jwtAuth, postController.delete);
+router.delete('/:id', jwtAuth, postController.deletePost);
 
 module.exports = router;

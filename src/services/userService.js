@@ -38,8 +38,7 @@ const getById = async (id) => {
 };
 
 const deleteMe = async (id) => {
-    const result = await User.destroy({ where: { id } });
-    return result;
+    await User.destroy({ where: { id } });
 };
 
 module.exports = {

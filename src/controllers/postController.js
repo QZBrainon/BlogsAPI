@@ -53,7 +53,7 @@ const deletePost = async (req, res) => {
     }
     const checkPost = await postService.getPostById(id);
     if (!checkPost) return res.status(404).json({ message: 'Post does not exist' });
-    return res.status(204).send();
+    return res.status(204).end();
 };
 
 module.exports = {

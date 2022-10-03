@@ -30,7 +30,7 @@ const getById = async (req, res) => {
 const deleteMe = async (req, res) => {
     const userId = req.id;
     await userService.deleteMe(userId);
-    return res.status(204);
+    return res.status(204).end();
 };
 
 module.exports = {

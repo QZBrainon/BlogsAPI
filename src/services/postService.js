@@ -56,12 +56,14 @@ const deletePost = async (id) => {
 };
 
 const getPostByQuery = async (queryString) => {
-    const result = await BlogPost.findAll({ 
-        where: { 
-            title: { [Op.like]: `%${queryString}%` },
-            content: { [Op.like]: `%${queryString}%` },       
-    }, 
-});
+    const result = await BlogPost.findAll({
+        where: {
+            [Op.or]: [
+                { title: { [Op.substring]: queryString } },
+                { content: { [Op.substring]: queryString } },
+            ],
+        },
+    });
     return result;
 };
 

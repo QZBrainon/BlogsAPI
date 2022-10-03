@@ -48,11 +48,11 @@ const deletePost = async (req, res) => {
     const user = await userService.getById(userId);
     const userPosts = user.posts;
     const validation = userPosts.some((userPost) => userPost.id === Number(id));
+    const checkPost = await postService.getPostById(id);
+    if (!checkPost) return res.status(404).json({ message: 'Post does not exist' });
     if (!validation) {
         return res.status(401).json({ message: 'Unauthorized user' });
     }
-    const checkPost = await postService.getPostById(id);
-    if (!checkPost) return res.status(404).json({ message: 'Post does not exist' });
     return res.status(204).end();
 };
 
